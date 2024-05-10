@@ -1,0 +1,30 @@
+<div class="button-container" x-data="wishlist">
+  <button type='button' class='' @click="addToWishlist()">
+    <span>{{ block.settings.text }} </span>
+  </button>
+</div>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script>
+  document.addEventListener('alpine:init', () => {
+      Alpine.data('wishlist', () => ({
+          wishlisted: false,
+
+          addToWishlist() {
+              this.wishlisted = ! this.wishlisted
+              // TODO: Send Data to the server
+          }
+      }))
+  })
+</script>
+{% schema %}
+{
+  "name": "Wish me",
+  "target": "section",
+  "settings": [
+    { "type": "product", "id": "product", "label": "product", "autofill": true },
+    { "type": "color", "id": "colour", "label": "Star Colour", "default": "#ff0000" },
+    { "type": "text", "id": "text", "label": "text", "default": "Add to Wishlist!"}
+  ]
+}
+{% endschema %}
+
