@@ -34,8 +34,6 @@ export const loader = async ({ request }) => {
     },
   });
 
-  console.log('wishlistData: -------> ', wishlistData);
-
   return json(wishlistData);
 };
 
@@ -152,22 +150,11 @@ export default function Index() {
                     ]}
                     rows={wishlistArray}/>
               ) : (
-                <EmptyState
-                  heading="Manage your wishlist products here"
-                  action={{
-                    content: 'Learn more',
-                    url: 'https://youtube.com/codeinspire',
-                    external: "true",
-                  }}
-                  secondaryAction={{
-                    content: 'Watch videos',
-                    url: 'https://youtube.com/codeinspire',
-                    external: "true",
-                  }}
-                  image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
-                >
-                  <p>You don't have any products in your wishlist yet.</p>
-                </EmptyState>
+                <BlockStack gap="200">
+                  <Text as="h2" variant="headingMd">
+                      Nothing to show...
+                  </Text>
+                </BlockStack>
               )}
             </Card>
           </Layout.Section>

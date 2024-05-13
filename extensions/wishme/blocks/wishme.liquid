@@ -3,12 +3,14 @@
     <span x-text="wishlisted ? 'Already Added ': 'Add to wishlist'"></span>
   </button>
 </div>
+
+
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <script>
   document.addEventListener('alpine:init', () => {
       Alpine.data('wishlist', () => ({
           wishlisted: false,
-          apiUrl: "https://heading-jamie-mathematics-wright.trycloudflare.com",
+          apiUrl: "https://particularly-action-departments-mount.trycloudflare.com",
           init(){
             fetch(this.apiUrl + "/api/wishlist"+"?customerId={{ customer.id }}&productId={{ product.id }}&shop={{ shop.permanent_domain }}")
                 .then(response => response.json())

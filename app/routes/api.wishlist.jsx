@@ -38,6 +38,7 @@ export async function loader ({request}) {
 
 export async function action ({request}) {
     const method = request.method
+    
     let data = await request.formData();
     data = Object.fromEntries(data);
     const customerId = data.customerId;
