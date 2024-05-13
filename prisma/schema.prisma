@@ -25,11 +25,17 @@ model Session {
 }
 
 model Setting {
-  id          String    @id
+  id          Int    @id @default(autoincrement())
   name        String
   description String?
 }
-
+model Whishlist {
+  id Int @id @default(autoincrement())
+  customerId String?
+  productId String?
+  shop String?
+  createdAt DateTime @default(now())
+}
 model BasicSetting{
   id          String    @id
   name        String

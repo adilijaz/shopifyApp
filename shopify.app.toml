@@ -3,7 +3,7 @@
 client_id = "23ea521c3b195bbd975ddaba5ee3c6fc"
 name = "wishlist-inspire"
 handle = "wishlist-inspire-166"
-application_url = "https://mazda-categories-appreciated-pm.trycloudflare.com"
+application_url = "https://particularly-action-departments-mount.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://mazda-categories-appreciated-pm.trycloudflare.com/auth/callback",
-  "https://mazda-categories-appreciated-pm.trycloudflare.com/auth/shopify/callback",
-  "https://mazda-categories-appreciated-pm.trycloudflare.com/api/auth/callback"
+  "https://particularly-action-departments-mount.trycloudflare.com/auth/callback",
+  "https://particularly-action-departments-mount.trycloudflare.com/auth/shopify/callback",
+  "https://particularly-action-departments-mount.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

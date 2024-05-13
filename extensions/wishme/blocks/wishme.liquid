@@ -1,6 +1,6 @@
 <div class="button-container" x-data="wishlist">
-  <button type='button' class='' @click="addToWishlist()">
-    <span>{{ block.settings.text }} </span>
+  <button type="button" class="" @click.debounce="addToWishlist()">
+    <span x-text="wishlisted ? 'Already Added ': 'Add to wishlist'"></span>
   </button>
 </div>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -8,14 +8,60 @@
   document.addEventListener('alpine:init', () => {
       Alpine.data('wishlist', () => ({
           wishlisted: false,
-
+          apiUrl: "https://heading-jamie-mathematics-wright.trycloudflare.com",
+          init(){
+            fetch(this.apiUrl + "/api/wishlist"+"?customerId={{ customer.id }}&productId={{ product.id }}&shop={{ shop.permanent_domain }}")
+                .then(response => response.json())
+                .then(result => {
+                    if(result.data.length > 0){
+                      this.wishlisted = true;
+                    }
+                })
+                .catch(error => console.log('error', error));
+          },
           addToWishlist() {
-              this.wishlisted = ! this.wishlisted
-              // TODO: Send Data to the server
+            
+            // TODO: Send Data to the server
+            {% unless customer %}
+              // If customer isn't login show error message
+              alert('Please login to add to wishlist')
+              return;
+            {% endunless %}
+
+            const formdata = new FormData();
+            formdata.append("customerId", "{{ customer.id }}");
+            formdata.append("productId", "{{ product.id }}");
+            formdata.append("shop", "{{ shop.permanent_domain }}");
+            formdata.append("_action", "CREATE");
+
+            
+            if(this.wishlisted){
+              this.wishlisted = false;
+              formdata.set("_action", "DELETE");
+            }
+
+            const requestOptions = {
+              method: "POST",
+              body: formdata,
+              redirect: "follow"
+            };
+
+            fetch(this.apiUrl+"/api/wishlist", requestOptions)
+              .then((response) => response.json())
+              .then((result) => {
+                console.log("Result:", result, typeof result.whishlist);
+                if(result.whishlist){
+                  this.wishlisted = true;
+                }else{
+                  this.wishlisted = false;
+                }
+              })
+              .catch((error) => console.error(error));
           }
       }))
   })
 </script>
+
 {% schema %}
 {
   "name": "Wish me",
@@ -23,8 +69,7 @@
   "settings": [
     { "type": "product", "id": "product", "label": "product", "autofill": true },
     { "type": "color", "id": "colour", "label": "Star Colour", "default": "#ff0000" },
-    { "type": "text", "id": "text", "label": "text", "default": "Add to Wishlist!"}
+    { "type": "text", "id": "text", "label": "text", "default": "Add to Wishlist!" }
   ]
 }
 {% endschema %}
-
